@@ -85,29 +85,35 @@ Vous devrez specifier les clés primaires et étrangères et les eventuelles tab
 
 Ecrire les requêtes SQL pour :
 
-* Afficher le nom de la liste dans laquelle se trouve la carte 3
+* 1) Afficher le nom de la liste dans laquelle se trouve la carte 3
 
 solution 1 (avec sous-requêtes):
 
-```
+```sql
 SELECT name FROM lists WHERE id = ( SELECT list_id FROM cards WHERE id = 3)
 ```
 
 solution 2 (avec alias):
 
-```
+```sql
 SELECT * FROM cards as c JOIN lists as l ON l.id = c.list_id WHERE c.id = 3
 ```
 
-* Afficher toutes les cards de la list qui a l'id 3
+* 2) Afficher toutes les cards de la list qui a l'id 3
 
-solution 1:
+solution 1 (optimale):
 
-```
+```sql
 SELECT * FROM cards WHERE list_id = 3
 ```
 
-* Afficher toutes les cards du user qui a l'id 1
-* Afficher toutes les users associés à la card qui a l'id 2
-* Afficher les lists avec leurs cards associées
-* Afficher les lists avec pour chacune les cards et pour chaque cards les users associés
+solution 2 (bullshit):
+
+```sql
+SELECT * FROM lists JOIN cards ON lists.id = list_id WHERE lists.id = 3
+```
+
+* 3) Afficher toutes les cards du user qui a l'id 1
+* 4) Afficher toutes les users associés à la card qui a l'id 2
+* 5) Afficher les lists avec leurs cards associées
+* 6) Afficher les lists avec pour chacune les cards et pour chaque cards les users associés
