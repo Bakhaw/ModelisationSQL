@@ -104,7 +104,7 @@ SELECT * FROM cards as c JOIN lists as l ON l.id = c.list_id WHERE c.id = 3
 solution 1:
 
 ```
-SELECT * FROM cards WHERE id = 3
+SELECT * FROM cards WHERE list_id = 3
 ```
 
 * Afficher toutes les cards du user qui a l'id 1
