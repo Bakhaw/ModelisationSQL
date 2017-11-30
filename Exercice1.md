@@ -87,13 +87,13 @@ Ecrire les requêtes SQL pour :
 
 * Afficher le nom de la liste dans laquelle se trouve la carte 3
 
-solution 1:
+solution 1 (avec sous-requêtes):
 
 ```
 SELECT name FROM lists WHERE id = ( SELECT list_id FROM cards WHERE id = 3)
 ```
 
-solution 2:
+solution 2 (avec alias):
 
 ```
 SELECT * FROM cards as c JOIN lists as l ON l.id = c.list_id WHERE c.id = 3
