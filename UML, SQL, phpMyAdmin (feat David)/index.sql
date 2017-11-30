@@ -1,28 +1,28 @@
 CREATE TABLE lists
 (
-   id INT NOT null AUTO_INCREMENT,
-   name Varchar(255),
+   id INT NOT NULL AUTO_INCREMENT,
+   name VARCHAR(255),
    PRIMARY KEY (id)
 );
 
-INSERT INTO lists(name) VALUES 
+INSERT INTO lists(name) VALUES
 (‘backlogs’),
 (‘A faire’),
 (‘En cours’),
 (‘Fait’);
 
 CREATE TABLE cards(
-   id int not null auto_increment,
-   name varchar(255),
+   id INT NOT NULL AUTO_INCREMENT,
+   name VARCHAR(255),
    list_id INt,
-   PRIMARY key (id),
-   foreign key(list_id) REFERENCES lists(id) on delete set null,
+   PRIMARY KEY (id),
+   FOREIGN KEY(list_id) REFERENCES lists(id) on delete set null,
    index (list_id)
  );
- 
- insert into cards(name, list_id) VALUES
- (‘faure un e requête SQL’, 4),
- (‘faire une appli NodeJS’, 2),
+
+ INSERT INTO cards(name, list_id) VALUES
+  (‘faure un e requête SQL’, 4),
+  (‘faire une appli NodeJS’, 2),
   (‘connecter l appli à la BDD’, 1),
   (‘Créer des routes d API’, 2),
   (‘Utiliser un ORM sur une base relationnelle’, 1),
@@ -30,12 +30,12 @@ CREATE TABLE cards(
   (‘Créer une web app pour intégréer lAPI’, 2),
   (‘créer une relation one to many’, 3),
   (‘créer une relation many to many’, 3);
- 
- create table users(
-     id int not null auto_increment,
-     firstname varchar(255),
-     lastname varchar(255),
-     primary key (id)
+
+ CREATE TABLE users(
+     id INT NOT NULL AUTO_INCREMENT,
+     firstname VARCHAR(255),
+     lastname VARCHAR(255),
+     PRIMARY KEY (id)
   );
 
 INSERT INTO users(lastname, firstname) VALUES
