@@ -100,6 +100,13 @@ SELECT * FROM cards as c JOIN lists as l ON l.id = c.list_id WHERE c.id = 3
 ```
 
 * Afficher toutes les cards de la list qui a l'id 3
+
+solution 1:
+
+```
+SELECT * FROM cards WHERE id = 3
+```
+
 * Afficher toutes les cards du user qui a l'id 1
 * Afficher toutes les users associés à la card qui a l'id 2
 * Afficher les lists avec leurs cards associées
