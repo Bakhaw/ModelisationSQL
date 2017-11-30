@@ -128,4 +128,28 @@ SELECT card_id, firstname, lastname, name FROM users_cards JOIN users ON users.i
 ```
 
 * 5/ Afficher les lists avec leurs cards associées
+
+solution 1 (GROUP_CONCAT dans un CONCAT):
+```sql
+SELECT l.name, CONCAT('["', GROUP_CONCAT( c.name SEPARATOR '","' ), '"]') as cards FROM lists as l JOIN cards as c ON c.list_id = l.id GROUP BY l.id
+```
+
+solution 2 (GROUP_CONCAT simple):
+```sql
+SELECT l.name, GROUP_CONCAT( c.name SEPARATOR '","' ) as cards FROM lists as l
+JOIN cards as c ON c.list_id = l.id
+GROUP BY l.id
+```
+
 * 6/ Afficher les lists avec pour chacune les cards et pour chaque cards les users associés
+
+Solution 1:
+```sql
+SELECT uc.card_id as cid,
+  CONCAT( '[{', GROUP_CONCAT(CONCAT(u.lastname,' ', u.firstname)
+  SEPARATOR '","'), '"}]')
+  as users
+  FROM users_cards as uc
+  JOIN users as u ON u.id = uc.user_id
+  GROUP BY uc.card_id
+```
