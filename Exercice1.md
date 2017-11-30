@@ -85,7 +85,7 @@ Vous devrez specifier les clés primaires et étrangères et les eventuelles tab
 
 Ecrire les requêtes SQL pour :
 
-* 1) Afficher le nom de la liste dans laquelle se trouve la carte 3
+* 1/ Afficher le nom de la liste dans laquelle se trouve la carte 3
 
 solution 1 (avec sous-requêtes):
 
@@ -99,7 +99,7 @@ solution 2 (avec alias):
 SELECT * FROM cards as c JOIN lists as l ON l.id = c.list_id WHERE c.id = 3
 ```
 
-* 2) Afficher toutes les cards de la list qui a l'id 3
+* 2/ Afficher toutes les cards de la list qui a l'id 3
 
 solution 1 (optimale):
 
@@ -113,7 +113,19 @@ solution 2 (bullshit):
 SELECT * FROM lists JOIN cards ON lists.id = list_id WHERE lists.id = 3
 ```
 
-* 3) Afficher toutes les cards du user qui a l'id 1
-* 4) Afficher toutes les users associés à la card qui a l'id 2
-* 5) Afficher les lists avec leurs cards associées
-* 6) Afficher les lists avec pour chacune les cards et pour chaque cards les users associés
+* 3/ Afficher toutes les cards du user qui a l'id 1
+
+solution 1:
+
+```sql
+SELECT name, firstname, lastname FROM users_cards JOIN cards ON cards.id = card_id JOIN users ON users.id = user_id WHERE user_id = 1
+```
+
+* 4/ Afficher toutes les users associés à la card qui a l'id 2
+
+```sql
+SELECT card_id, firstname, lastname, name FROM users_cards JOIN users ON users.id = user_id JOIN cards ON cards.id = card_id WHERE card_id = 2
+```
+
+* 5/ Afficher les lists avec leurs cards associées
+* 6/ Afficher les lists avec pour chacune les cards et pour chaque cards les users associés
