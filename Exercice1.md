@@ -87,14 +87,14 @@ Ecrire les requêtes SQL pour :
 
 * 1/ Afficher le nom de la liste dans laquelle se trouve la carte 3
 
-solution 1 (avec sous-requêtes):
+Solution 1 (avec sous-requêtes)
 
 ```sql
 SELECT name FROM lists
 WHERE id = ( SELECT list_id FROM cards WHERE id = 3)
 ```
 
-solution 2 (avec alias):
+Solution 2 (avec alias)
 
 ```sql
 SELECT * FROM cards as c
@@ -103,13 +103,13 @@ JOIN lists as l ON l.id = c.list_id WHERE c.id = 3
 
 * 2/ Afficher toutes les cards de la list qui a l'id 3
 
-solution 1 (optimale):
+Solution 1 (optimale)
 
 ```sql
 SELECT * FROM cards WHERE list_id = 3
 ```
 
-solution 2 (bullshit):
+Solution 2 (bullshit)
 
 ```sql
 SELECT * FROM lists
@@ -117,8 +117,6 @@ JOIN cards ON lists.id = list_id WHERE lists.id = 3
 ```
 
 * 3/ Afficher toutes les cards du user qui a l'id 1
-
-solution 1:
 
 ```sql
 SELECT name, firstname, lastname FROM users_cards
@@ -136,14 +134,14 @@ JOIN cards ON cards.id = card_id WHERE card_id = 2
 
 * 5/ Afficher les lists avec leurs cards associées
 
-solution 1 (GROUP_CONCAT dans un CONCAT):
+Solution 1 (GROUP_CONCAT dans un CONCAT)
 ```sql
 SELECT l.name, CONCAT('["', GROUP_CONCAT( c.name SEPARATOR '","' ), '"]') as cards FROM lists as l
 JOIN cards as c ON c.list_id = l.id
 GROUP BY l.id
 ```
 
-solution 2 (GROUP_CONCAT simple):
+Solution 2 (GROUP_CONCAT simple)
 ```sql
 SELECT l.name, GROUP_CONCAT( c.name SEPARATOR '","' ) as cards FROM lists as l
 JOIN cards as c ON c.list_id = l.id
@@ -152,7 +150,7 @@ GROUP BY l.id
 
 * 6/ Afficher les lists avec pour chacune les cards et pour chaque cards les users associés
 
-Solution 1:
+Solution 1
 ```sql
 SELECT uc.card_id as cid,
   CONCAT( '[{', GROUP_CONCAT(CONCAT(u.lastname,' ', u.firstname)
@@ -161,4 +159,31 @@ SELECT uc.card_id as cid,
   FROM users_cards as uc
   JOIN users as u ON u.id = uc.user_id
   GROUP BY uc.card_id
+```
+
+Solution 2 (mySQL:8)
+
+```sql
+SELECT
+l.id as id,
+l.name as name,
+JSON_ARRAYAGG(
+  JSON_OBJECT("id", c.id, "name", c.name, "users", ucr.users)
+) as cards
+FROM
+(
+  SELECT uc.card_id as cid,
+  JSON_ARRAYAGG(
+    JSON_OBJECT(
+      "id", uc.user_id,
+      "name", CONCAT(u.lastname,' ', u.firstname)
+    )
+  ) as users
+  FROM users_cards as uc
+  JOIN users as u ON u.id = uc.user_id
+  GROUP BY uc.card_id
+) ucr
+JOIN cards as c ON ucr.cid = c.id
+JOIN lists as l ON l.id = c.list_id
+GROUP BY c.list_id;
 ```

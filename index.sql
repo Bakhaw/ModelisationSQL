@@ -1,3 +1,10 @@
+CREATE DATABASE IF NOT EXISTS boarddb1 CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE boarddb1;
+DROP TABLE IF EXISTS users_cards;
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS cards;
+DROP TABLE IF EXISTS lists;
+
 CREATE TABLE lists
 (
    id INT NOT NULL AUTO_INCREMENT,
@@ -6,10 +13,10 @@ CREATE TABLE lists
 );
 
 INSERT INTO lists(name) VALUES
-(‘backlogs’),
-(‘A faire’),
-(‘En cours’),
-(‘Fait’);
+('Backlogs'),
+('A faire'),
+('En cours'),
+('Fait');
 
 CREATE TABLE cards(
    id INT NOT NULL AUTO_INCREMENT,
@@ -21,15 +28,15 @@ CREATE TABLE cards(
  );
 
  INSERT INTO cards(name, list_id) VALUES
-  (‘faure un e requête SQL’, 4),
-  (‘faire une appli NodeJS’, 2),
-  (‘connecter l appli à la BDD’, 1),
-  (‘Créer des routes d API’, 2),
-  (‘Utiliser un ORM sur une base relationnelle’, 1),
-  (‘utiliser un ORM sur une base non-relationnelle’, 4),
-  (‘Créer une web app pour intégréer lAPI’, 2),
-  (‘créer une relation one to many’, 3),
-  (‘créer une relation many to many’, 3);
+  ('Faire une requête SQL', 4),
+  ('Faire une appli NodeJS', 2),
+  ("Connecter l'appli à la BDD", 1),
+  ("Créer des routes d'API", 2),
+  ('Utiliser un ORM sur une base relationnelle', 1),
+  ('Utiliser un ORM sur une base non-relationnelle', 4),
+  ("Créer une web app pour intégrer l'API", 2),
+  ('Créer une relation One to Many', 3),
+  ('Créer une relation Many to Many', 3);
 
  CREATE TABLE users(
      id INT NOT NULL AUTO_INCREMENT,
