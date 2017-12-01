@@ -53,7 +53,7 @@ De par l'ajout d'une gestion personnelle des déplacements de carte par les appr
 
 A vous de jouer !!!
 
-## Afficher toutes les cards du user 1
+## 1/ Afficher toutes les cards du user 1
 
 ```sql
 SELECT c.id as 'cardId', c.name as 'cardName' FROM users_cards_lists as ucl
@@ -61,7 +61,7 @@ JOIN cards as c ON ucl.card_id = c.id
 WHERE ucl.user_id = 1
 ```
 
-## Afficher tous les users qui ont des cards en lists 3
+## 2/ Afficher tous les users qui ont des cards en lists 3
 
 ```sql
 SELECT DISTINCT list_id as 'listId', users.id as 'userId', CONCAT(users.firstname, ' ', users.lastname) as 'userName' FROM users_cards_lists
@@ -69,7 +69,7 @@ JOIN users ON user_id = users.id
 WHERE list_id = 3
 ```
 
-## Pour plus de détail, ajouter, pour chaque utilisateur, le nom des cards qu’ils ont en liste 1
+## 3/ Pour plus de détail, ajouter, pour chaque utilisateur, le nom des cards qu’ils ont en liste 1
 
 Solution 1(mySQL:5.6)
 
@@ -99,9 +99,9 @@ WHERE list_id = 3
 GROUP BY user_id
 ```
 
-## Afficher les cards avec les lists associés
+## 4/ Afficher les cards avec les lists associés
 
-## Afficher les listes avec leurs tâches associées et avec pour chaque tâches, la liste des utilisateurs associés
+## 5/ Afficher les listes avec leurs tâches associées et avec pour chaque tâches, la liste des utilisateurs associés
 
 
 
