@@ -101,10 +101,28 @@ GROUP BY user_id
 
 ## 4/ Afficher les cards avec les lists associés
 
+```sql
+SELECT c.id, c.name, cat.name
+FROM cards as c
+JOIN users_cards_lists as ucl ON ucl.card_id = c.id
+JOIN lists as cat ON cat.id = ucl.list_id
+ORDER BY c.id
+```
+
 ## 5/ Afficher les listes avec leurs tâches associées et avec pour chaque tâches, la liste des utilisateurs associés
 
-
-
+```sql
+SELECT cat.name, JSON_ARRAYAGG( JSON_OBJECT('card', rucl.cname, 'users', rucl.users )) as cards
+FROM (
+  SELECT c.id as cid, c.name as cname, ucl.list_id as lid, JSON_ARRAYAGG( u.firstname ) as users
+  FROM users_cards_lists as ucl
+  JOIN users as u ON u.id = ucl.user_id
+  JOIN cards as c ON c.id = ucl.card_id
+  GROUP BY ucl.list_id, ucl.card_id
+) as rucl
+JOIN lists as cat ON cat.id = rucl.cid
+GROUP BY cat.id
+```
 
 
 
