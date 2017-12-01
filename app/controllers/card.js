@@ -17,7 +17,7 @@ router.post("/", (req, res) => {
     .catch(err => res.json(err));
 });
 
-router.put("/:id", (req, res) => {
+router.post("/update/:id", (req, res) => {
 
   const { id } = req.params;
   const { name } = req.body;
@@ -28,7 +28,7 @@ router.put("/:id", (req, res) => {
     .catch(err => res.json(err));
 });
 
-router.delete("/:id", (req, res) => {
+router.get("/delete/:id", (req, res) => {
 
   const { id } = req.params;
 

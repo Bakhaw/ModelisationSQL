@@ -7,8 +7,8 @@ module.exports = {
   createUser(firstname, lastname) {
     return db.asyncQuery(`INSERT INTO users(firstname, lastname) VALUES('${firstname}', '${lastname}')`);
   },
-  updateUser({ id, name }) {
-    return db.asyncQuery(`UPDATE users SET name='${name}' WHERE id='${id}'`);
+  updateUser({ id, firstname, lastname }) {
+    return db.asyncQuery(`UPDATE users SET firstname='${firstname}', lastname='${lastname}' WHERE id='${id}'`);
   },
   deleteUser(id) {
     return db.asyncQuery(`DELETE FROM users WHERE id = '${id}'`);
